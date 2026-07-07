@@ -1,0 +1,114 @@
+{
+  "avatar": "/icono.avif",
+  "name": "Profe Alex",
+  "bio": "Recursos y plataformas ",
+  "theme": {
+    "bg": "#0a0a0a",
+    "cardBg": "rgba(2, 0, 20, 0.349)",
+    "cardBorder": "rgba(255,255,255,0.08)",
+    "text": "#ffffff",
+    "textSecondary": "rgba(255,255,255,0.55)",
+    "accent": "#818cf8",
+    "cardHover": "rgba(255,255,255,0.08)"
+  },
+  "links": [
+    {
+      "title": "Recursos",
+      "url": "https://recursos.edualex.uy/",
+      "icon": "book-open",
+      "color": "#818cf8",
+      "desc": "Material didáctico, guías y más para el aula."
+    },
+    {
+      "title": "QuizVerse",
+      "url": "https://quiz.edualex.uy/",
+      "icon": "help-circle",
+      "color": "#22c55e",
+      "desc": "Cuestionarios interactivos para repasar contenidos potenciados por IA."
+    },
+    {
+      "title": "EduTools",
+      "url": "https://tools.edualex.uy/",
+      "icon": "wrench",
+      "color": "#14b8a6",
+      "desc": "Generador de puzzles educativos, sencillo y con persistencia."
+    },
+    {
+      "title": "Ruleta Interactiva",
+      "url": "https://ruleta.devalex.lat/",
+      "icon": "shuffle",
+      "color": "#a855f7",
+      "desc": "Sorteá participantes al azar para actividades grupales."
+    },
+    {
+      "title": "Acortador",
+      "url": "https://short.uy/",
+      "icon": "link",
+      "color": "#f59e0b",
+      "desc": "Acortador de enlaces simple."
+    },
+    {
+      "title": "QR Studio",
+      "url": "https://qr.edualex.uy/",
+      "icon": "scan-line",
+      "color": "#fb923c",
+      "desc": "Generador de códigos QR personalizables."
+    },
+    {
+      "title": "Sync All",
+      "url": "https://sync.short.uy/",
+      "icon": "refresh-cw",
+      "color": "#34d399",
+      "desc": "Sincronizá archivos y chats entre dispositivos al instante."
+    },
+    {
+      "title": "Panel Docente",
+      "url": "https://docente.edualex.uy/",
+      "icon": "layout-dashboard",
+      "color": "#f43f5e",
+      "desc": "Dashboard con herramientas para la gestión docente."
+    },
+    {
+      "title": "Álbum Histórico",
+      "url": "https://album.edualex.uy/",
+      "icon": "images",
+      "color": "#ec4899",
+      "desc": "Colección de figuras de personajes históricos."
+    },
+    {
+      "title": "Álbum Histórico 1ra Ed.",
+      "url": "https://historicoalbumedualex.vercel.app",
+      "icon": "archive",
+      "color": "#84cc16",
+      "desc": "Historial completo de la primera edición del álbum."
+    },
+    {
+      "title": "Blog",
+      "url": "https://edualex.uy/blog",
+      "icon": "newspaper",
+      "color": "#eab308",
+      "desc": "Artículos y publicaciones educativas."
+    },
+    {
+      "title": "REA",
+      "url": "https://edualex.uy/rea",
+      "icon": "file-text",
+      "color": "#38bdf8",
+      "desc": "Recursos Educativos Abiertos para descargar."
+    },
+    {
+      "title": "Status",
+      "url": "https://status.edualex.uy/",
+      "icon": "activity",
+      "color": "#10b981",
+      "desc": "Estado y monitoreo de todos los servicios."
+    },
+    {
+      "title": "Contacto",
+      "url": "https://contacto.edualex.uy/",
+      "icon": "mail",
+      "color": "#06b6d4",
+      "desc": "Formulario de contacto y consultas."
+    }
+  ]
+}

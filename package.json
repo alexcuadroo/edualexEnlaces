@@ -1,0 +1,20 @@
+{
+  "name": "edualex-enlaces",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide": "1.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.0",
+    "typescript": "6.0.3",
+    "vite": "8.1.3"
+  }
+}
