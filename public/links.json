@@ -20,6 +20,13 @@
       "desc": "Material didáctico, guías y más para el aula."
     },
     {
+      "title": "Árbol de materiales",
+      "url": "https://arbol.edualex.uy/",
+      "icon": "git-branch",
+      "color": "#8b5cf6",
+      "desc": "Organizá niveles, materiales y enlaces rápidamente."
+    },
+    {
       "title": "QuizVerse",
       "url": "https://quiz.edualex.uy/",
       "icon": "help-circle",

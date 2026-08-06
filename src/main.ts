@@ -15,6 +15,7 @@ import {
   Shuffle,
   Archive,
   Activity,
+  GitBranch,
 } from "lucide";
 
 interface LinkItem {
@@ -207,6 +208,7 @@ async function init(): Promise<void> {
         Shuffle,
         Archive,
         Activity,
+        GitBranch,
       },
     });
     initCursorGlow();
