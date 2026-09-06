@@ -4,7 +4,6 @@ import {
   HelpCircle,
   Link,
   FileText,
-  ClipboardCheck,
   ScanLine,
   RefreshCw,
   LayoutDashboard,
@@ -16,6 +15,10 @@ import {
   Archive,
   Activity,
   GitBranch,
+  Sparkles,
+  Search,
+  X,
+  ChevronRight,
 } from "lucide";
 
 interface LinkItem {
@@ -61,49 +64,24 @@ function getInitials(name: string | undefined): string {
     .toUpperCase();
 }
 
-function renderIcon(icon: string, color?: string): string {
-  return `<i data-lucide="${icon}" style="color: ${color || "var(--accent)"}; width:22px;height:22px"></i>`;
-}
-
-function getBentoSpan(i: number, total: number): string {
-  const remaining = total - i;
-  const mod = i % 8;
-
-  if (remaining === 1) return "1";
-  if (remaining === 2) {
-    if (mod === 4) return "2";
-    if (mod === 0) return "2x2";
-  }
-  if (remaining === 3 && mod === 4) return "2";
-
-  switch (mod) {
-    case 0:
-      return "2x2";
-    case 1:
-    case 6:
-      return "2";
-    case 4:
-      return "2v";
-    default:
-      return "1";
-  }
+function normalize(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
 function renderLinks(links: LinkItem[]): string {
   return links
     .map(
       (link, i) => `
-      <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="link-card" data-span="${getBentoSpan(i, links.length)}" style="--accent: ${link.color || "var(--accent)"}; --i: ${i}">
-        <span class="link-card-inner">
-          <span class="link-card-front">
-            <span class="link-icon">${renderIcon(link.icon, link.color)}</span>
-            <span class="link-text">${link.title}</span>
-            <span class="link-arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></svg>
-            </span>
-          </span>
-          ${link.desc ? `<span class="link-card-back"><span class="link-desc">${link.desc}</span></span>` : ""}
+      <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="link-card" style="--tint: ${link.color || "var(--accent)"}; --i: ${i}" aria-label="${link.title}${link.desc ? ` — ${link.desc}` : ""}">
+        <span class="link-icon"><i data-lucide="${link.icon}"></i></span>
+        <span class="link-body">
+          <span class="link-text">${link.title}</span>
+          ${link.desc ? `<span class="link-desc">${link.desc}</span>` : ""}
         </span>
+        <span class="link-arrow"><i data-lucide="chevron-right"></i></span>
       </a>
     `,
     )
@@ -112,7 +90,7 @@ function renderLinks(links: LinkItem[]): string {
 
 function renderAvatar(avatar: string | undefined, name: string): string {
   if (avatar) {
-    return `<img src="${avatar}" alt="" class="avatar" crossorigin="anonymous" />`;
+    return `<img src="${avatar}" alt="" class="avatar" crossorigin="anonymous" fetchpriority="high" />`;
   }
   return `<div class="avatar initials">${getInitials(name)}</div>`;
 }
@@ -136,32 +114,51 @@ function applyTheme(theme: Theme): void {
   }
 }
 
-function renderFooter(): string {
-  return `<p>EduAlex &middot; ${new Date().getFullYear()}</p>`;
+function initSearch(total: number): void {
+  const input = document.getElementById("search-input") as HTMLInputElement | null;
+  const wrap = document.getElementById("search") as HTMLElement | null;
+  const count = document.getElementById("count") as HTMLElement | null;
+  const empty = document.getElementById("empty") as HTMLElement | null;
+  const clear = document.getElementById("search-clear") as HTMLButtonElement | null;
+  if (!input || !wrap) return;
+
+  const cards = Array.from(document.querySelectorAll<HTMLElement>(".link-card"));
+
+  const apply = (): void => {
+    const q = normalize(input.value.trim());
+    let visible = 0;
+    for (const card of cards) {
+      const text = normalize(card.textContent ?? "");
+      const show = !q || text.includes(q);
+      card.classList.toggle("is-hidden", !show);
+      if (show) visible += 1;
+    }
+    wrap.classList.toggle("has-value", input.value.length > 0);
+    empty?.classList.toggle("show", visible === 0);
+    if (count) {
+      count.textContent =
+        !q || visible === total ? "" : `${visible} de ${total}`;
+    }
+  };
+
+  input.addEventListener("input", apply);
+  clear?.addEventListener("click", () => {
+    input.value = "";
+    input.focus();
+    apply();
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      input.value = "";
+      apply();
+      input.blur();
+    }
+  });
+  apply();
 }
 
-function initCursorGlow(): void {
-  // Desktop only, and only for users who don't ask to reduce motion.
-  const desktop = window.matchMedia("(min-width: 481px)");
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (!desktop.matches || reduce.matches) return;
-
-  const root = document.documentElement;
-  let raf = 0;
-  window.addEventListener("pointermove", (e) => {
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      root.style.setProperty(
-        "--mx",
-        `${(e.clientX / window.innerWidth) * 100}%`,
-      );
-      root.style.setProperty(
-        "--my",
-        `${(e.clientY / window.innerHeight) * 100}%`,
-      );
-      raf = 0;
-    });
-  });
+function renderFooter(): string {
+  return `<p>EduAlex &middot; ${new Date().getFullYear()}</p>`;
 }
 
 async function init(): Promise<void> {
@@ -181,9 +178,17 @@ async function init(): Promise<void> {
           ${data.bio ? `<p class="bio">${data.bio}</p>` : ""}
         </header>
 
+        <div class="search" id="search">
+          <i data-lucide="search"></i>
+          <input id="search-input" type="search" placeholder="Buscar…" autocomplete="off" aria-label="Buscar enlaces" />
+          <button class="search-clear" id="search-clear" type="button" aria-label="Limpiar búsqueda"><i data-lucide="x"></i></button>
+        </div>
+        <p class="count" id="count" aria-live="polite"></p>
+
         <main class="links">
           ${renderLinks(data.links)}
         </main>
+        <div class="empty" id="empty">Sin resultados.<br />Probá con otra palabra.</div>
 
         <footer class="footer">
           ${renderFooter()}
@@ -197,7 +202,6 @@ async function init(): Promise<void> {
         HelpCircle,
         Link,
         FileText,
-        ClipboardCheck,
         ScanLine,
         RefreshCw,
         LayoutDashboard,
@@ -209,9 +213,13 @@ async function init(): Promise<void> {
         Archive,
         Activity,
         GitBranch,
+        Sparkles,
+        Search,
+        X,
+        ChevronRight,
       },
     });
-    initCursorGlow();
+    initSearch(data.links.length);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     app.innerHTML = `<div class="error">Error al cargar los enlaces: ${message}</div>`;

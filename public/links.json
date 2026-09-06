@@ -1,7 +1,7 @@
 {
-  "avatar": "/icono.avif",
+  "avatar": "/icono-v2.png",
   "name": "Profe Alex",
-  "bio": "Recursos y plataformas ",
+  "bio": "Índice a mis herramientas y recursos.",
   "theme": {
     "bg": "#0a0a0a",
     "cardBg": "rgba(2, 0, 20, 0.349)",
@@ -34,6 +34,13 @@
       "desc": "Cuestionarios interactivos para repasar contenidos potenciados por IA."
     },
     {
+      "title": "GenImages",
+      "url": "https://chat.edualex.uy/",
+      "icon": "sparkles",
+      "color": "#d946ef",
+      "desc": "Generador de imágenes, mapas conceptuales y fichas didácticas."
+    },
+    {
       "title": "EduTools",
       "url": "https://tools.edualex.uy/",
       "icon": "wrench",
@@ -63,7 +70,7 @@
     },
     {
       "title": "Sync All",
-      "url": "https://sync.short.uy/",
+      "url": "https://sync.edualex.uy/",
       "icon": "refresh-cw",
       "color": "#34d399",
       "desc": "Sincronizá archivos y chats entre dispositivos al instante."
