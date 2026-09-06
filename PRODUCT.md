@@ -29,3 +29,6 @@ Cada enlace: `title`, `url`, `icon` (lucide), `color` (tinte del icono), `desc`
 - No agregar copy ni claims nuevos sin pedirlo; los textos viven en `links.json`.
 - Mobile intocable en espíritu: simple, rápido, pulgar-amigable.
 - Accesibilidad: foco visible, `prefers-reduced-motion`, contraste ≥4.5:1 en texto.
+- Temas claro/oscuro (`data-theme` en `<html>`, oscuro por defecto). El script inline
+  del `<head>` fija el tema desde `localStorage` antes del primer pintado (anti-parpadeo);
+  el toggle vive en `main.ts` (`initThemeToggle`) y actualiza `theme-color`.
